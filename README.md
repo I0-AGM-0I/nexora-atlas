@@ -84,9 +84,29 @@ npm run build
 
 ---
 
+## Demo Data Engine (Offline Synthetic Environment)
+
+ATLAS includes a deterministic, offline-safe **Demo Data Engine** generating a cohesive synthetic cloud organization (**Nexora Labs Inc**) across 3 AWS accounts, 58 resources, 90 days of daily cost history (5,220 cost records), 4 explainable anomalies, 7 optimization opportunities, 8 actionable recommendations, 3 forecast horizons, and 3 strategic scenarios.
+
+### Seeding via CLI
+```bash
+python scripts/seed_demo.py
+```
+
+### Demo Management Endpoints
+When `DEMO_MODE=true` (default in development), the following endpoints are available:
+- `GET /api/v1/demo/status` - Returns dataset health metrics, resource counts, and financial reconciliation status.
+- `POST /api/v1/demo/seed` - Triggers deterministic demo dataset seed (with automated reset first).
+- `POST /api/v1/demo/reset` - Safely purges demo records (`is_demo=True`) while preserving real production tenants.
+
+When `DEMO_MODE=false`, these endpoints return `403 Forbidden`.
+
+---
+
 ## Key Endpoints
 - `GET /health` - System health and database connection status
 - `GET /api/v1/meta` - Service identity, API version, and demo mode flag
+- `GET /api/v1/demo/status` - Demo environment health & reconciliation report
 - `GET /docs` - Interactive OpenAPI documentation
 
 ---
@@ -94,6 +114,7 @@ npm run build
 ## Documentation
 - [System Architecture](docs/architecture/system.md)
 - [Data Model](docs/architecture/data-model.md)
+- [Demo Data Engine](docs/architecture/demo-data-engine.md)
 - [Telemetry Separation](docs/architecture/telemetry-separation.md)
 - [AWS Integration](docs/architecture/aws-integration.md)
 - [ADR 001: Modular Monolith](docs/decisions/001-modular-monolith.md)
