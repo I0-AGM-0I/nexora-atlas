@@ -1,5 +1,7 @@
 # Environment variables
 .env
+.env.*
+!.env.example
 .env.local
 .env.*.local
 
@@ -18,8 +20,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+/lib/
+/lib64/
 parts/
 sdist/
 var/
@@ -32,9 +34,12 @@ wheels/
 .mypy_cache/
 .coverage
 htmlcov/
+coverage/
 *.db
 *.sqlite
 *.sqlite3
+*.zip
+
 
 # Node / Web
 node_modules/
@@ -48,6 +53,9 @@ yarn-error.log*
 .eslintcache
 *.tsbuildinfo
 
+
+# Protect frontend application source
+!apps/web/src/lib/
 
 # Logs & OS
 *.log
