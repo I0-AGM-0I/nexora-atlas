@@ -9,9 +9,11 @@
 FROM node:20-alpine AS frontend-builder
 WORKDIR /app/web
 
-# Pass running commit SHA into Vite build-time environment
-ARG VITE_COMMIT_SHA=dev
-ENV VITE_COMMIT_SHA=${VITE_COMMIT_SHA}
+# Pass running commit SHA into Vite build-time environment (GitHub Actions or Render)
+ARG RENDER_GIT_COMMIT=""
+ARG VITE_COMMIT_SHA=${RENDER_GIT_COMMIT}
+ENV VITE_COMMIT_SHA=${VITE_COMMIT_SHA:-dev}
+ENV RENDER_GIT_COMMIT=${RENDER_GIT_COMMIT}
 
 # Install dependencies with lockfile consistency
 COPY apps/web/package*.json ./
