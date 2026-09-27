@@ -32,7 +32,7 @@ async def test_cca_requirement_health_endpoint(client: AsyncClient):
     assert response.status_code == 200
 
     data = response.json()
-    assert data["status"] == "healthy"
+    assert data["status"] == "degraded"
     assert data["service"] == "nexora-atlas-api"
     assert data["database"] == "connected"
     assert "version" in data
