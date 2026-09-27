@@ -192,7 +192,14 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:ec2:us-west-2:111222333444:instance/i-0eks-node-m5-4x-{i:02d}",
             "name": f"analytics-worker-node-{i:02d}",
             "status": "ACTIVE",
-            "specs_json": {"instance_type": "m5.4xlarge", "vcpus": 16, "memory_gb": 64, "cluster": "analytics-eks-cluster"},
+            "specs_json": {
+                "instance_type": "m5.4xlarge",
+                "vcpus": 16,
+                "memory_gb": 64,
+                "cluster": "analytics-eks-cluster",
+                "p95_cpu_utilization_pct": 11.2,
+                "p95_memory_utilization_pct": 18.4,
+            },
             "base_daily_cost": 1640.0,  # ~₹49,200/mo each!
             "tags": {"Environment": "production", "Team": "analytics", "Application": "data-platform", "CostCenter": "CC-PROD-101"},
         })
@@ -223,7 +230,13 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
         "resource_arn": "arn:aws:s3:::nexora-raw-data-lake",
         "name": "nexora-raw-data-lake",
         "status": "ACTIVE",
-        "specs_json": {"storage_class": "STANDARD", "approx_size_tb": 48.5, "versioning": "ENABLED"},
+        "specs_json": {
+            "storage_class": "STANDARD",
+            "approx_size_tb": 48.5,
+            "versioning": "ENABLED",
+            "non_current_versions_gb": 18400,
+            "lifecycle_rules_found": 0,
+        },
         "base_daily_cost": 1950.0,  # ~₹58,500/mo
         "tags": {"Environment": "production", "Team": "analytics", "Application": "data-lake"},
     })
@@ -377,7 +390,13 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:ec2:ap-south-1:333444555666:instance/i-dev-sandbox-t3x-{i:02d}",
             "name": f"dev-sandbox-t3x-{i:02d}",
             "status": "ACTIVE",
-            "specs_json": {"instance_type": "t3.xlarge", "vcpus": 4, "memory_gb": 16},
+            "specs_json": {
+                "instance_type": "t3.xlarge",
+                "vcpus": 4,
+                "memory_gb": 16,
+                "running_hours_per_week": 168,
+                "observed_off_hours_cpu_pct": 0.8,
+            },
             "base_daily_cost": 415.0,  # ~₹12,450/mo each
             "tags": {"Environment": "development", "Team": "devops", "CostCenter": "CC-ENG-202"},
         })
@@ -392,7 +411,13 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:ec2:ap-south-1:333444555666:instance/i-dev-sandbox-m5l-{i:02d}",
             "name": f"dev-sandbox-m5l-{i:02d}",
             "status": "ACTIVE",
-            "specs_json": {"instance_type": "m5.large", "vcpus": 2, "memory_gb": 8},
+            "specs_json": {
+                "instance_type": "m5.large",
+                "vcpus": 2,
+                "memory_gb": 8,
+                "running_hours_per_week": 168,
+                "observed_off_hours_cpu_pct": 0.7,
+            },
             "base_daily_cost": 270.0,
             "tags": {"Environment": "development", "Team": "devops", "CostCenter": "CC-ENG-202"},
         })
@@ -408,7 +433,13 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:rds:ap-south-1:333444555666:db:dev-microservice-db-{i:02d}",
             "name": f"dev-microservice-db-{i:02d}",
             "status": "ACTIVE",
-            "specs_json": {"engine": "postgres", "instance_class": "db.t3.small", "storage_gb": 100},
+            "specs_json": {
+                "engine": "postgres",
+                "instance_class": "db.t3.small",
+                "storage_gb": 100,
+                "active_client_connections": 0,
+                "idle_duration_pct": 88.5,
+            },
             "base_daily_cost": 210.0,  # ~₹6,300/mo each
             "tags": {"Environment": "development", "Team": "devops"},
         })
@@ -424,7 +455,13 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:ec2:ap-south-1:333444555666:volume/vol-unattached-dev-{i:02d}",
             "name": f"orphaned-dev-vol-{i:02d}",
             "status": "AVAILABLE",  # AVAILABLE in AWS means unattached!
-            "specs_json": {"volume_type": "gp2", "size_gb": 400, "attachment_state": "detached"},
+            "specs_json": {
+                "volume_type": "gp2",
+                "size_gb": 400,
+                "attachment_state": "detached",
+                "volume_status": "AVAILABLE",
+                "days_unattached": 18,
+            },
             "base_daily_cost": 150.0,  # ~₹4,500/mo each
             "tags": {"Environment": "development", "Team": "devops"},
         })
@@ -440,7 +477,12 @@ def get_resource_fixtures() -> List[Dict[str, Any]]:
             "resource_arn": f"arn:aws:ec2:ap-south-1:333444555666:elastic-ip/eipalloc-orphan-{i:02d}",
             "name": f"idle-eip-{i:02d}",
             "status": "UNASSOCIATED",
-            "specs_json": {"allocation_id": f"eipalloc-orphan-{i:02d}", "association_id": None},
+            "specs_json": {
+                "allocation_id": f"eipalloc-orphan-{i:02d}",
+                "association_id": None,
+                "association_status": "UNATTACHED",
+                "idle_duration_days": 28,
+            },
             "base_daily_cost": 35.0,  # ~₹1,050/mo each
             "tags": {"Environment": "development", "Team": "devops"},
         })

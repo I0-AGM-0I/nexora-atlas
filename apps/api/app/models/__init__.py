@@ -12,6 +12,8 @@ from app.models.anomaly import Anomaly
 from app.models.optimization import OptimizationOpportunity, Recommendation
 from app.models.scenario import Scenario, ScenarioChange
 from app.models.forecast import Forecast
+from app.models.telemetry import ResourceMetricObservation
+from app.models.ai import AIInteraction
 
 __all__ = [
     "Base",
@@ -33,4 +35,6 @@ __all__ = [
     "SyncJob",
     "Integration",
     "AuditLog",
+    "ResourceMetricObservation",
+    "AIInteraction",
 ]

@@ -7,6 +7,10 @@ NEXORA ATLAS transforms raw cloud technology spend into actionable cost intellig
 
 ---
 
+> 📖 **Comprehensive System Documentation**: For an exhaustive, file-by-file, mathematical, and architectural deep-dive of the entire system from A to Z, see [SYSTEM_DOCUMENTATION.md](file:///d:/Nexora%20Atlas/SYSTEM_DOCUMENTATION.md).
+
+---
+
 ## Architecture Overview
 
 ATLAS is constructed as a modern, high-performance **modular monolith**:
@@ -45,11 +49,14 @@ cd apps/web
 # Install dependencies
 npm install
 
-# Start Vite dev server (runs on http://localhost:5173)
+# Start Vite dev server (runs on http://localhost:5173, opens automatically in browser)
 npm run dev
 ```
 
-Open `http://localhost:5173` in your browser.
+The browser will automatically open to `http://localhost:5173`.
+
+> 💡 **One-Command Quick Start (Windows)**:
+> Run `.\run-all.bat` or `.\run-all.ps1` from the root directory to launch both the backend API and frontend dev server and automatically open the application in your browser.
 
 ---
 

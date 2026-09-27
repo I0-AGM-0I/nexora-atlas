@@ -19,7 +19,7 @@ interface CommandItem {
 const DEFAULT_COMMANDS: CommandItem[] = [
   { id: 'nav-overview', title: 'Overview Dashboard', category: 'Navigation', path: '/dashboard', icon: LayoutDashboard },
   { id: 'nav-spend', title: 'Spend Explorer', category: 'Navigation', path: '/spend', icon: BarChart3 },
-  { id: 'nav-anomalies', title: 'Anomaly Center', category: 'Navigation', path: '/anomalies', icon: AlertTriangle },
+  { id: 'nav-anomalies', title: 'Changes & Anomalies', category: 'Navigation', path: '/changes', icon: AlertTriangle },
   { id: 'nav-optimization', title: 'Optimization Center', category: 'Navigation', path: '/optimization', icon: Zap },
   { id: 'nav-scenarios', title: 'Scenario Simulator', category: 'Navigation', path: '/scenarios', icon: GitFork },
   { id: 'nav-forecast', title: 'Cost Forecast', category: 'Navigation', path: '/forecast', icon: TrendingUp },
