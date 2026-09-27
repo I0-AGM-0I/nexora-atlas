@@ -2,15 +2,34 @@
 NEXORA ATLAS - Pytest Configuration & Test Fixtures
 """
 
+import os
+import tempfile
+from pathlib import Path
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 
-from app.main import app
 from app.core.config import settings
 from app.core.database import get_db
 from app.models.base import Base
+
+
+def _ensure_static_dir():
+    """Ensure static SPA serving can be tested even if apps/web/dist has not been pre-built."""
+    _web_dist = Path(__file__).resolve().parent.parent.parent / "apps" / "web" / "dist"
+    _legacy_dist = Path(__file__).resolve().parent.parent / "web" / "dist"
+    if not os.environ.get("STATIC_DIR") and not _web_dist.is_dir() and not _legacy_dist.is_dir():
+        _fallback_dist = Path(tempfile.gettempdir()) / "nexora_atlas_test_spa_dist"
+        _fallback_dist.mkdir(parents=True, exist_ok=True)
+        _test_index = _fallback_dist / "index.html"
+        if not _test_index.is_file():
+            _test_index.write_text(
+                '<!DOCTYPE html><html><head><title>NEXORA ATLAS</title></head><body><div id="root"></div></body></html>',
+                encoding="utf-8",
+            )
+        os.environ["STATIC_DIR"] = str(_fallback_dist)
+
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
@@ -42,6 +61,9 @@ async def db_session() -> AsyncSession:
 @pytest_asyncio.fixture(scope="function")
 async def client(db_session: AsyncSession):
     """Provides an async HTTP test client with database dependency override."""
+    _ensure_static_dir()
+    from app.main import app
+
     async def override_get_db():
         yield db_session
 
